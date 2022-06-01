@@ -100,7 +100,7 @@ Um processo em estado pronto ou de espera pode nao estar na memória principal. 
 
 ## Referências
 
-<a href="../Tec-ARQUITETURA_DE_SISTEMAS_OPERACIONAIS.pdf">Livro Arquitetura de Sistemas Opreacionais (4º edição) - Francis Berenger Machado e Luiz Paulo Maia</a>
-https://www.youtube.com/watch?v=NWrm0sbAkdA
-https://diolinux.com.br/tutoriais/o-que-e-memoria-swap.html
+<a href="../Tec-ARQUITETURA_DE_SISTEMAS_OPERACIONAIS.pdf">Livro Arquitetura de Sistemas Opreacionais (4º edição) - Francis Berenger Machado e Luiz Paulo Maia</a>  
+https://www.youtube.com/watch?v=NWrm0sbAkdA  
+https://diolinux.com.br/tutoriais/o-que-e-memoria-swap.html  
 https://www.youtube.com/watch?v=S03EXcOkdh4
