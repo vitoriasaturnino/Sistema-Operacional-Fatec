@@ -6,7 +6,7 @@ Conteúdo das aulas de Sistema Operacional
 - <a href=""></a>Buffer
 - <a href=""></a>Kernel
 - <a href="/pocessos/README.md">Pocessos</a>
-- <a href=""></a>Thread
+- <a href="/thread/README.md">Thread</a>
 - <a href=""></a>Mutex
 - <a href=""></a>Escalonamento
 - <a href=""></a>Gerenciamento de Memória
