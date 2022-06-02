@@ -48,6 +48,8 @@ Este compartilhamento de memória permite que a troca de dados entre threads de 
 
 São riadas através de uma biblioteca de funções fora do núcleo do sistema operacional. Neste caso as threads são implementadas pela aplicação do usuário e não pelo sistema operacional e a própria aplicação deve gerenciar a sincronização e comunicação entre as threads.
 
+<a href="/thread/thread_java/">Exemplo de thread implementada em Java</a>
+
   <h2>Thread em Modo Kernel</h2>
 
 Neste modo sua criação é feita pelo próprio núcleo do sistema operacional através de chamadas à rotinas do sistema que oferecem todas as funções para gerenciar a sincronização e comunicação das threads. Sendo assim, o sistema operacional quem cuida das threads e decide qual thread vai ser executada pelo processador em um determinado momento (escalonamento de threads).
