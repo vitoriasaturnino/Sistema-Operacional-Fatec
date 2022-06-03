@@ -8,7 +8,7 @@ Conteúdo das aulas de Sistema Operacional
 - <a href="/pocessos/README.md">Pocessos</a>
 - <a href="/thread/README.md">Thread</a>
 - <a href=""></a>Mutex
-- <a href=""></a>Escalonamento
+- <a href="/escalonamento/README.md">Escalonamento</a>
 - <a href=""></a>Gerenciamento de Memória
 - <a href=""></a>Memória Virtual
 
