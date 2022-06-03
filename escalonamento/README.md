@@ -66,7 +66,7 @@ Em todos os casos, uma política de escalonamento sempre busca otimizar o uso do
 
   <h2 id="tempo_compartilhado">Política de Escalonamento em Sistemas de Tempo Compartilhado</h2>
 
-Nos sistemas de tempo compartilhado os usuários interagem com os sistemas interativamente, através de processos interativos, exigindo tempos de resposta baixos.
+Nos sistemas de tempo compartilhado os usuários se comunicam com os sistemas, através de processos interativos, exigindo tempos de resposta baixos.
 
   <h2 id="tempo_real">Política de Escalonamento em Sistemas de Tempo Real</h2>
 
@@ -77,15 +77,15 @@ Se o tempo de resposta é crítico para determinada aplicação. ela deve ser ex
 
   <h1>Escalonamento Não-Preemptivos</h1>
 
-O escalonamento **Não-Preemptivo** (o primeiro tipo de escalonamento implementado nos sistemas operacionais multi programados) Um processo em execução somente sai do estado em execução quando termina seu processamento ou quando ocorre um erro gerado por algum código do próprio processo.
+O escalonamento **Não-Preemptivo** (o primeiro tipo de escalonamento implementado nos sistemas operacionais multi programados), um processo em execução somente sai desse estado quando termina seu processamento, ou caso ocorra um erro gerado por algum código do próprio processo.
 
   <h2>Escalonamento firts-in-first-out (FIFO)</h2>
-Neste escalonamento o processo que chegar primeiro ao estado de pronto é selecionado para execução. Os processos em estado pronto são colocados em uma fila de pronto. Quando o processo em execução é colocado no estado de espera, o primeiro processo da fila pronto é selecionado para execução.
+Neste escalonamento o processo que chegar primeiro ao estado de pronto é selecionado para execução, todos os processos nesse estado são colocados em uma fila. Quando o processo em execução é colocado no estado de espera, o primeiro processo na fila de pronto é selecionado para execução.
 
 <br>
 
-  <h2>Escalonamento Shortest-Job_First (SJF)</h2>
-Neste escalonamento o processo que tiver o menor tempo de processador é selecionado para execução.
+  <h2>Escalonamento Shortest-Job-First (SJF)</h2>
+Aqui o processo que tiver o menor tempo de processador é selecionado para execução.
 
 <br>
 
@@ -100,17 +100,17 @@ Neste escalonamento o processo em execução na UCP pode liberar o processador, 
 No Escalonamento **Preemptivo** o sistema operacional pode interromper um processo em execução e passá-lo para o estado de pronto, para alocar outro processo na UCP.
 
   <h2>Escalonamento Circular</h2>
-É do tipo preemptivo, projetado especialmente para sistemas de tempo compartilhado. ele é parecido com o escalonamento FIFO porem quando um processo passa para o estado de execução existe um tempo-limite para o uso contínuo do processador, uma fatia de tempo para cada processo, chamada time-slice.
+Projetado especialmente para sistemas de tempo compartilhado, ele é parecido com o escalonamento FIFO porém quando um processo passa para o estado de execução existe um tempo-limite para o uso do processador, desta forma temos uma fatia de tempo para cada processo, chamada time-slice.
 
 <br>
 
   <h2>Escalonamento por Prioridades</h2>
-Neste escalonamento é feita preempção dos processos em execução na prioridade de cada processo. ele foi projetado para sistemas de tempo real. Neste escalonamento o processo com maior prioridade no estado de pronto é sempre o escolhido para execução, e processo com valores iguais são escalonados seguindo o critério de FIFO.
+Projetado para sistemas de tempo real, neste escalonamento o processo com maior prioridade no estado de pronto é sempre o escolhido para execução, e processo com valores iguais são escalonados seguindo o critério de FIFO.
 
 <br>
 
   <h2>Escalonamento Circular com Prioridades</h2>
-Este escalonamento implementa o conceito de fatia de tempo e de prioridade de execução associada a cada processo.
+Este escalonamnto implementa o conceito de fatia de tempo e de prioridade de execução associada a cada processo.
 
 <br>
 
@@ -120,6 +120,6 @@ Neste escalonamento existem diversas filas de processos no estado de pronto, cad
 <br>
 
   <h2>Escalonamento por Múltiplas Filas com Realimentação</h2>
-Neste escalonamento é semelhante ao escalonamento por múltiplas filas, porém os processos podem trocar de filas durante seu processamento. O sistema operacional coloca o processo na fila que é mais adequada para seu processamento de forma eficiente de acordo com o comportamento do processo.
+Semelhante ao escalonamento por múltiplas filas, no entanto, aqui, os processos podem trocar de filas durante seu processamento. O sistema operacional coloca o processo na fila que é mais adequada para seu caso de forma eficiente de acordo com o comportamento do processo.
 
 </div>
