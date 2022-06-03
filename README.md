@@ -3,7 +3,7 @@
 Conteúdo das aulas de Sistema Operacional
 
 - <a href="/memoria-cache/README.md">Memória Cache</a>
-- <a href=""></a>Buffer
+- <a href="/buffer/README.md">Buffer</a>
 - <a href=""></a>Kernel
 - <a href="/pocessos/README.md">Pocessos</a>
 - <a href="/thread/README.md">Thread</a>
