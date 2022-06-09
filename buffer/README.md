@@ -8,7 +8,7 @@ Um exemplo bem comum de buffer é a barra de carregamento de um vídeo no YouTub
   <br>
 
   <div align="center">
-    <img width="350" src="buffer.png">
+    <img width="500" src="buffer.png">
   </div>
 
   <br>
