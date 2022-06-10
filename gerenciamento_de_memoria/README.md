@@ -22,85 +22,68 @@ Existem diversas formas, como a monoprogramada, onde existe apenas um programa e
 
 Um sistema de computação possui vários tipos de memórias. O grenciador de porcessos trabalha administrando os recursos da memória principal (RAM).
 
+<br>
+
 <div align="center">
   <img width="600" src="./imagens/hierarquia_de_memoria.png">
 </div>
+<br>
 
 <br>
 
 <h1>Monoprogramação sem Troca de Processos ou Paginação</h1>
 
 Este é o esquema mais simples de gerenciamento de memória. Neste caso a memória é
-compartilhada entre o sistema operacional e o programa usuário. É importante observar que a
-monoprogramação indica que somente um programa usuário é carregado na memória e executado
-por vez.
+compartilhada entre o sistema operacional e o programa usuário. É importante observar que a monoprogramação indica que somente um programa usuário é carregado na memória e executado por vez.
+
+<br>
 
 <div align="center">
   <img width="650" src="./imagens/gerenciamento_de_memoria_monoprogramacao.png">
 </div>
 
-O primeiro modelo apresentado foi utilizado em computadores de grande porte (mainframe) e já não é mais
-utilizado. Já a segunda forma de organização ainda é utilizada em tabletes, celulares e em sistemas
-embarcados. A estratégia ilustrada no último modelo esteve presente nos primeiros computadores pessoais,
-onde a parte do sistema operacional contida em ROM é denominada BIOS.
+<br>
 
-Pelo fato de permitir que apenas um único programa usuário seja carregado em memória a cada
-instante, a monoprogramação raramente é usada hoje em dia, a não ser em sistemas embarcados
-simples.
+O primeiro modelo apresentado foi utilizado em computadores de grande porte (mainframe) e já não é mais utilizado. Já a segunda forma de organização ainda é utilizada em tabletes, celulares e em sistemas embarcados. A estratégia ilustrada no último modelo esteve presente nos primeiros computadores pessoais, onde a parte do sistema operacional contida em ROM é denominada BIOS.
+
+Pelo fato de permitir que apenas um único programa usuário seja carregado em memória a cada instante, a monoprogramação raramente é usada hoje em dia, a não ser em sistemas embarcados simples.
 
 <br>
 
 <h1>Multiprogramação com Partições Fixas</h1>
 
-Os sistemas operacionais modernos permitem que mais de um processo seja carregado em
-memória, de modo que quando um fica bloqueado esperando por uma operação de I/O outro, que
-esteja carregado em memória, poderá usar a CPU. Dessa forma, a multiprogramação ajuda a
-melhorar a utilização da CPU evitando desperdícios de ciclo de processamento.
+Os sistemas operacionais modernos permitem que mais de um processo seja carregado em memória, de modo que quando um fica bloqueado esperando por uma operação de I/O outro, que esteja carregado em memória, poderá usar a CPU. Dessa forma, a multiprogramação ajuda a melhorar a utilização da CPU evitando desperdícios de ciclo de processamento.
 
-Para que seja possível a multiprogramação, podemos dividir a memória em n partições
-(provavelmente de tamanhos diferentes). Os processos serão colocados em filas de entrada associadas à
-menor partição capaz de armazená-lo. Pelo fato de usarmos partições de tamanho fixo, todo o
-restante de espaço de memória não utilizado por ele será perdido. Este desperdício de memória é
-chamado de **fragmentação interna** (espaço de memória perdido dentro da área alocada ao
-processo). Por outro lado, imagine que exista duas partições livres, uma de 25 e outra de 100
-Kbytes, não contíguas. Nesse instante é criado um processo de 110 Kbytes que não poderá ser
-carregado em memória pela forma como ela é gerenciada. Este problema ocasiona o que
-chamamos de **fragmentação externa** (memória perdida fora da área ocupada por um processo). A
-Figura 2 ilustra o esquema de organização com partições fixas.
+Para que seja possível a multiprogramação, podemos dividir a memória em n partições (provavelmente de tamanhos diferentes). Os processos serão colocados em filas de entrada associadas à menor partição capaz de armazená-lo. Pelo fato de usarmos partições de tamanho fixo, todo o restante de espaço de memória não utilizado por ele será perdido. Este desperdício de memória é chamado de **fragmentação interna** (espaço de memória perdido dentro da área alocada ao processo). Por outro lado, imagine que exista duas partições livres, uma de 25 e outra de 100 Kbytes, não contíguas. Nesse instante é criado um processo de 110 Kbytes que não poderá ser carregado em memória pela forma como ela é gerenciada. Este problema ocasiona o que chamamos de **fragmentação externa** (memória perdida fora da área ocupada por um processo).
+
+<br>
 
 <div align="center">
   <img width="400" src="./imagens/filas_associadas.png">
 </div>
 
-O problema da organização em múltiplas filas é que processos pequenos podem precisar esperar pela
-liberação de memória (partição mais adequada para o mesmo), embora exista memória disponível
-(partição grande), como é o caso da partição 1 e 3. Por outro lado, isso não ocorre no esquema de
-uma única fila.
+<br>
+
+O problema da organização em múltiplas filas é que processos pequenos podem precisar esperar pela liberação de memória (partição mais adequada para o mesmo), embora exista memória disponível (partição grande), como é o caso da partição 1 e 3. Por outro lado, isso não ocorre no esquema de uma única fila.
+
+<br>
 
 <div align="center">
   <img width="450" src="./imagens/fila_unica.png">
 </div>
 
+<br>
+
 Nesta organização sempre que uma nova partição é liberada o processo mais próximo
-do início da fila e que caiba nessa partição pode ser carregado nela para ser executado pela CPU.
-No entanto, esta estratégia pode desperdiçar muito espaço ao armazenar um processo pequeno em uma
-partição grande. Assim, uma opção mais interessante seria pesquisar em toda a fila de entrada e
-alocar a partição disponível ao maior processo que pudesse ser carregado. Qual o problema dessa
-solução? (Discriminar processos pequenos!) Qual a solução? (Ter pelo menos uma partição pequena!).
-Existe uma outra possibilidade consiste em estabelecer uma quantidade máxima k de vezes que um
-processo pudesse ser excluído da escolha de receber uma partição. Assim, sempre que ele fosse
-preterido teria seu contador incrementado e, ao chegar em k vezes, ele teria que receber uma
-partição.
+do início da fila e que caiba nessa partição pode ser carregado nela para ser executado pela CPU. No entanto, esta estratégia pode desperdiçar muito espaço ao armazenar um processo pequeno em uma partição grande. Assim, uma opção mais interessante seria pesquisar em toda a fila de entrada e alocar a partição disponível ao maior processo que pudesse ser carregado. Qual o problema dessa solução? (Discriminar processos pequenos!) Qual a solução? (Ter pelo menos uma partição pequena!). Existe uma outra possibilidade consiste em estabelecer uma quantidade máxima k de vezes que um processo pudesse ser excluído da escolha de receber uma partição. Assim, sempre que ele fosse preterido teria seu contador incrementado e, ao chegar em k vezes, ele teria que receber uma partição.
 
 <br>
 
 <h1>Alocação contigua simples</h1>
 
-Foi Implementada nos primeiros Sistemas Operacionais e ainda existe em alguns sistemas monoprogramáveis.
-Nesse tipo de organização a Memória principal é dividida em duas partes, Sistema Operacional e programa do usuário.
+Foi Implementada nos primeiros Sistemas Operacionais e ainda existe em alguns sistemas monoprogramáveis. Nesse tipo de organização a Memória principal é dividida em duas partes, Sistema Operacional e programa do usuário.
 
-Nesse esquema o programador tem controle sobre toda a memória principal, podendo acessar qualquer posição da memória, inclusive onde está o Sistema Operacional. Para proteger o sistema desse tipo de acesso que pode ser intencional ou não, alguns sistemas implementam proteção através de um registrador que delimita as áreas do SO e do usuário. Dessa forma sempre que um programa faz referência a um endereço na memória o sistema verifica se o endereço está dentro dos limites permitidos, caso não esteja o programa é cancelado e é mostrado uma mensagem de erro indicando que houve violação de acesso na memória principal.
-Ela tem Fácil implementação e código reduzido, porém é Ineficiente no uso do processador e da memória pois apenas um usuário pode dispor desse recurso.
+Nesse esquema o programador tem controle sobre toda a memória principal, podendo acessar qualquer posição da memória, inclusive onde está o Sistema Operacional. Para proteger o sistema desse tipo de acesso que pode ser intencional ou não, alguns sistemas implementam proteção através de um registrador que delimita as áreas do SO e do usuário. Dessa forma sempre que um programa faz referência a um endereço na memória o sistema verifica se o endereço está dentro dos limites permitidos, caso não esteja o programa é cancelado e é mostrado uma mensagem de erro indicando que houve violação de acesso na memória principal. Ela tem Fácil implementação e código reduzido, porém é Ineficiente no uso do processador e da memória pois apenas um usuário pode dispor desse recurso.
 
 <br>
 
