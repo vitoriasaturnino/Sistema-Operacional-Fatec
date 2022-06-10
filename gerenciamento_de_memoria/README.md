@@ -22,8 +22,6 @@ Existem diversas formas, como a monoprogramada, onde existe apenas um programa e
 
 Um sistema de computação possui vários tipos de memórias. O grenciador de porcessos trabalha administrando os recursos da memória principal (RAM).
 
-<br>
-
 <div align="center">
   <img width="400" src="./imagens/hierarquia_de_memoria.png">
 </div>
@@ -35,8 +33,6 @@ Um sistema de computação possui vários tipos de memórias. O grenciador de po
 
 Este é o esquema mais simples de gerenciamento de memória. Neste caso a memória é
 compartilhada entre o sistema operacional e o programa usuário. É importante observar que a monoprogramação indica que somente um programa usuário é carregado na memória e executado por vez.
-
-<br>
 
 <div align="center">
   <img width="650" src="./imagens/gerenciamento_de_memoria_monoprogramacao.png">
@@ -56,8 +52,6 @@ Os sistemas operacionais modernos permitem que mais de um processo seja carregad
 
 Para que seja possível a multiprogramação, podemos dividir a memória em n partições (provavelmente de tamanhos diferentes). Os processos serão colocados em filas de entrada associadas à menor partição capaz de armazená-lo. Pelo fato de usarmos partições de tamanho fixo, todo o restante de espaço de memória não utilizado por ele será perdido. Este desperdício de memória é chamado de **fragmentação interna** (espaço de memória perdido dentro da área alocada ao processo). Por outro lado, imagine que exista duas partições livres, uma de 25 e outra de 100 Kbytes, não contíguas. Nesse instante é criado um processo de 110 Kbytes que não poderá ser carregado em memória pela forma como ela é gerenciada. Este problema ocasiona o que chamamos de **fragmentação externa** (memória perdida fora da área ocupada por um processo).
 
-<br>
-
 <div align="center">
   <img width="400" src="./imagens/filas_associadas.png">
 </div>
@@ -65,8 +59,6 @@ Para que seja possível a multiprogramação, podemos dividir a memória em n pa
 <br>
 
 O problema da organização em múltiplas filas é que processos pequenos podem precisar esperar pela liberação de memória (partição mais adequada para o mesmo), embora exista memória disponível (partição grande), como é o caso da partição 1 e 3. Por outro lado, isso não ocorre no esquema de uma única fila.
-
-<br>
 
 <div align="center">
   <img width="450" src="./imagens/fila_unica.png">
