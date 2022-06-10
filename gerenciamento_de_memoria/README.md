@@ -2,11 +2,95 @@
 
 <h1>Gerenciamento de Memória</h1>
 
-Gerenciamento de memória é uma das tarefas exercidas pelo Sistema Operacional. Dentre suas funções estão:
+O gerenciamento de memória é realizado por um módulo do Sistema Operacional que e chama gerenciador de recursos.
+A tarefa do gerencimento de memória são:
 
-- Reconhecer quais regiões da memória estão em uso e quais não estão;
-- Alocar memória para processos que estão prontos para execução e desalocá-la quando sua execução for concluída;
-- Gerenciar o swapping entre a memória principal e o disco, quando não houver espaço suficiente na memória principal para comportar todos os processos.
+- Gerenciar a hierarquia de memória.
+  - Gerenciar quais espaçoes estão livre e/ou ocupados;
+  - Alocar e localizar processos/dados na memória.
+- Mapear e atualizar quais partes da memória estão em uso e quais não estão para que seja possível:
+  - Alocar memória para processos que estão prontos para execução;
+  - Libera-la quando o processo concluir sua execução.
+- Gerenciar o swapping:
+  - Chaveamento entre a memória principal e o disco quando não houver espaço suficiente na memória principal para comportar todos os processos.
+
+<br>
+
+<h1>Como o Sistma Operacional administra o recurso de memória principal?</h1>
+
+Existem diversas formas, como a monoprogramada, onde existe apenas um programa em execução, ou para casos em que há vários processos executados de forma concorrente (multiprogramada).
+
+Um sistema de computação possui vários tipos de memórias. O grenciador de porcessos trabalha administrando os recursos da memória principal (RAM).
+
+<div align="center">
+  <img width="600" src="./imagens/hierarquia_de_memoria.png">
+</div>
+
+<br>
+
+<h1>Monoprogramação sem Troca de Processos ou Paginação</h1>
+
+Este é o esquema mais simples de gerenciamento de memória. Neste caso a memória é
+compartilhada entre o sistema operacional e o programa usuário. É importante observar que a
+monoprogramação indica que somente um programa usuário é carregado na memória e executado
+por vez.
+
+<div align="center">
+  <img width="650" src="./imagens/gerenciamento_de_memoria_monoprogramacao.png">
+</div>
+
+O primeiro modelo apresentado foi utilizado em computadores de grande porte (mainframe) e já não é mais
+utilizado. Já a segunda forma de organização ainda é utilizada em tabletes, celulares e em sistemas
+embarcados. A estratégia ilustrada no último modelo esteve presente nos primeiros computadores pessoais,
+onde a parte do sistema operacional contida em ROM é denominada BIOS.
+
+Pelo fato de permitir que apenas um único programa usuário seja carregado em memória a cada
+instante, a monoprogramação raramente é usada hoje em dia, a não ser em sistemas embarcados
+simples.
+
+<br>
+
+<h1>Multiprogramação com Partições Fixas</h1>
+
+Os sistemas operacionais modernos permitem que mais de um processo seja carregado em
+memória, de modo que quando um fica bloqueado esperando por uma operação de I/O outro, que
+esteja carregado em memória, poderá usar a CPU. Dessa forma, a multiprogramação ajuda a
+melhorar a utilização da CPU evitando desperdícios de ciclo de processamento.
+
+Para que seja possível a multiprogramação, podemos dividir a memória em n partições
+(provavelmente de tamanhos diferentes). Os processos serão colocados em filas de entrada associadas à
+menor partição capaz de armazená-lo. Pelo fato de usarmos partições de tamanho fixo, todo o
+restante de espaço de memória não utilizado por ele será perdido. Este desperdício de memória é
+chamado de **fragmentação interna** (espaço de memória perdido dentro da área alocada ao
+processo). Por outro lado, imagine que exista duas partições livres, uma de 25 e outra de 100
+Kbytes, não contíguas. Nesse instante é criado um processo de 110 Kbytes que não poderá ser
+carregado em memória pela forma como ela é gerenciada. Este problema ocasiona o que
+chamamos de **fragmentação externa** (memória perdida fora da área ocupada por um processo). A
+Figura 2 ilustra o esquema de organização com partições fixas.
+
+<div align="center">
+  <img width="400" src="./imagens/filas_associadas.png">
+</div>
+
+O problema da organização em múltiplas filas é que processos pequenos podem precisar esperar pela
+liberação de memória (partição mais adequada para o mesmo), embora exista memória disponível
+(partição grande), como é o caso da partição 1 e 3. Por outro lado, isso não ocorre no esquema de
+uma única fila.
+
+<div align="center">
+  <img width="450" src="./imagens/fila_unica.png">
+</div>
+
+Nesta organização sempre que uma nova partição é liberada o processo mais próximo
+do início da fila e que caiba nessa partição pode ser carregado nela para ser executado pela CPU.
+No entanto, esta estratégia pode desperdiçar muito espaço ao armazenar um processo pequeno em uma
+partição grande. Assim, uma opção mais interessante seria pesquisar em toda a fila de entrada e
+alocar a partição disponível ao maior processo que pudesse ser carregado. Qual o problema dessa
+solução? (Discriminar processos pequenos!) Qual a solução? (Ter pelo menos uma partição pequena!).
+Existe uma outra possibilidade consiste em estabelecer uma quantidade máxima k de vezes que um
+processo pudesse ser excluído da escolha de receber uma partição. Assim, sempre que ele fosse
+preterido teria seu contador incrementado e, ao chegar em k vezes, ele teria que receber uma
+partição.
 
 <br>
 
@@ -50,7 +134,7 @@ Os SO implementam basicamente 3 estrategias para determinar em qual área livre 
 
 - **Best-fit** Nessa estratégia é escolhida a melhor partição, ou seja, aquela que o programa deixa o menor espaço sem utilização. Nesse algoritmo a Lista de áreas livres esta alocada por tamanho, diminuindo o tempo de busca. Tem a Desvantagem de deixar pequenas áreas não contíguas, aumentando o problema da fragmentação.
 
-- **Worst-fit** Nessa estratégia é escolhida a pior partição, ou seja, aquela que o programa deixa o maior espaço sem utilização. Ela Diminui o p \*\*ema de fragmentação, deixando espaços livres maiores que permitem a um maior número de programas utilizar a memória.
+- **Worst-fit** Nessa estratégia é escolhida a pior partição, ou seja, aquela que o programa deixa o maior espaço sem utilização. Ela Diminui o problema de fragmentação, deixando espaços livres maiores que permitem a um maior número de programas utilizar a memória.
 
 - **First-fit** Nessa estratégia é escolhida a primeira partição livre de tamanho suficiente para carregar o programa. Nesse algoritmo a Lista de áreas livres ordenada por endereços crescentemente. Existe uma Grande chance de se obter uma grande partição livre nos endereços de memórias mais altos. Das 3 estratégias é a Mais rápida e consome menos recursos do sistema.
 

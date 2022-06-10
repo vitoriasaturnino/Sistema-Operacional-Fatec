@@ -150,7 +150,8 @@ Um endereço é formado pelo número do segmento, pelo número de página, conti
 O endereço físico é obtido somando-se a posição inicial do frame e o deslocamento.
 
 Swapping em Memória Virtual
-Quando existem novos processos que desejam ser processados e não existe memória real suficiente, o sistema seleciona um ou mais processos que deverão sair da memória para ceder espaço aos novos processos.
+Quando existem novos processos que desejam ser processados e não existe memória real suficiente, o sistema seleciona um ou mais processos que deverão sair da memória para ceder espaço aos nov bn
+os processos.
 Os critérios mais utilizados para a escolha são a prioridade, escolhendo processos de melhor prioridade, e o estado do processo, selecionando os processos que estão no estado de espera.
 
 Thrashing
