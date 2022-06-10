@@ -25,7 +25,7 @@ Um sistema de computação possui vários tipos de memórias. O grenciador de po
 <br>
 
 <div align="center">
-  <img width="600" src="./imagens/hierarquia_de_memoria.png">
+  <img width="400" src="./imagens/hierarquia_de_memoria.png">
 </div>
 <br>
 
