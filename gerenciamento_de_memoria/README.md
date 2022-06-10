@@ -12,7 +12,7 @@ A tarefa do gerencimento de memória são:
   - Alocar memória para processos que estão prontos para execução;
   - Libera-la quando o processo concluir sua execução.
 - Gerenciar o swapping:
-  - Chaveamento entre a memória principal e o disco quando não houver espaço suficiente na memória principal para comportar todos os processos.
+  - Chaveamento entre a memória principal e o disco quando não houver espaço suficiente na memória principal para comportar todos os processos ([swap in] executá-lo durante um intervalo de tempo e depois devolvê-lo ao disco [swap out])
 
 <br>
 
@@ -46,6 +46,20 @@ Pelo fato de permitir que apenas um único programa usuário seja carregado em m
 
 <br>
 
+<h2>Alocação contigua simples</h2>
+
+Foi Implementada nos primeiros Sistemas Operacionais e ainda existe em alguns sistemas monoprogramáveis. Nesse tipo de organização a Memória principal é dividida em duas partes, Sistema Operacional e programa do usuário.
+
+Nesse esquema o programador tem controle sobre toda a memória principal, podendo acessar qualquer posição da memória, inclusive onde está o Sistema Operacional. Para proteger o sistema desse tipo de acesso que pode ser intencional ou não, alguns sistemas implementam proteção através de um registrador que delimita as áreas do SO e do usuário. Dessa forma sempre que um programa faz referência a um endereço na memória o sistema verifica se o endereço está dentro dos limites permitidos, caso não esteja o programa é cancelado e é mostrado uma mensagem de erro indicando que houve violação de acesso na memória principal. Ela tem Fácil idispormplementação e código reduzido, porém é Ineficiente no uso do processador e da memória pois apenas um usuário pode desse recurso.
+
+<br>
+
+<h2>Técnicas de overlay</h2>
+
+Na alocação contigua simples todos os programas estão limitados ao tamanho da memória principal disponível para o usuário. Uma solução encontrada para o problema é dividir o programa em módulos, de forma que seja possível a execução independente de cada modulo, utilizando a mesma área da memória, essa técnica é chamada de overlay. A definição das áreas de Overlay é de responsabilidade do programador através de comandos específicos da linguagem utilizada.
+
+<br>
+
 <h1>Multiprogramação com Partições Fixas</h1>
 
 Os sistemas operacionais modernos permitem que mais de um processo seja carregado em memória, de modo que quando um fica bloqueado esperando por uma operação de I/O outro, que esteja carregado em memória, poderá usar a CPU. Dessa forma, a multiprogramação ajuda a melhorar a utilização da CPU evitando desperdícios de ciclo de processamento.
@@ -66,56 +80,36 @@ O problema da organização em múltiplas filas é que processos pequenos podem 
 
 <br>
 
-Nesta organização sempre que uma nova partição é liberada o processo mais próximo
-do início da fila e que caiba nessa partição pode ser carregado nela para ser executado pela CPU. No entanto, esta estratégia pode desperdiçar muito espaço ao armazenar um processo pequeno em uma partição grande. Assim, uma opção mais interessante seria pesquisar em toda a fila de entrada e alocar a partição disponível ao maior processo que pudesse ser carregado. Qual o problema dessa solução? (Discriminar processos pequenos!) Qual a solução? (Ter pelo menos uma partição pequena!). Existe uma outra possibilidade consiste em estabelecer uma quantidade máxima k de vezes que um processo pudesse ser excluído da escolha de receber uma partição. Assim, sempre que ele fosse preterido teria seu contador incrementado e, ao chegar em k vezes, ele teria que receber uma partição.
+Nesta organização sempre que uma nova partição é liberada o processo mais próximo do início da fila e que caiba nessa partição pode ser carregado nela para ser executado pela CPU. No entanto, esta estratégia pode desperdiçar muito espaço ao armazenar um processo pequeno em uma partição grande. Assim, uma opção mais interessante seria pesquisar em toda a fila de entrada e alocar a partição disponível ao maior processo que pudesse ser carregado. Qual o problema dessa soluçã (Discriminar processos pequenos!) Qual a solução? (Ter pelo menos uma partição pequena!). Existe uma outra possibilidade consiste em estabelecer uma quantidade máxima k de vezes que um processo pudesse ser excluído da escolha de receber uma partição. Assim, sempre que ele fosse preterido teria seu contador incrementado e, ao chegar em k vezes, ele teria que receber uma partição.
 
 <br>
 
-<h1>Alocação contigua simples</h1>
+<h1>Multiprogramação com Partições Dinâmica/Variáveis</h1>
 
-Foi Implementada nos primeiros Sistemas Operacionais e ainda existe em alguns sistemas monoprogramáveis. Nesse tipo de organização a Memória principal é dividida em duas partes, Sistema Operacional e programa do usuário.
-
-Nesse esquema o programador tem controle sobre toda a memória principal, podendo acessar qualquer posição da memória, inclusive onde está o Sistema Operacional. Para proteger o sistema desse tipo de acesso que pode ser intencional ou não, alguns sistemas implementam proteção através de um registrador que delimita as áreas do SO e do usuário. Dessa forma sempre que um programa faz referência a um endereço na memória o sistema verifica se o endereço está dentro dos limites permitidos, caso não esteja o programa é cancelado e é mostrado uma mensagem de erro indicando que houve violação de acesso na memória principal. Ela tem Fácil implementação e código reduzido, porém é Ineficiente no uso do processador e da memória pois apenas um usuário pode dispor desse recurso.
-
-<br>
-
-<h1>Técnicas de overlay</h1>
-
-Na alocação contigua simples todos os programas estão limitados ao tamanho da memória principal disponível para o usuário. Uma solução encontrada para o problema é dividir o programa em módulos, de forma que seja possível a execução independente de cada modulo, utilizando a mesma área da memória, essa técnica é chamada de overlay. A definição das áreas de Overlay é de responsabilidade do programador através de comandos específicos da linguagem utilizada.
+<div align="center">
+  <img width="650" src="./imagens/particao_dinamica.png">
+</div>
 
 <br>
 
-<h1>Alocações Particionadas Estática e Dinâmica</h1>
+Neste esquema de organização a quantidade e o tamanho dos processos na memória podem variar com o passar do tempo, o tamanho das partições é ajustado dinamicamente às necessidades exatas dos processos. como na figura o funcionamento deste algoritmo, considerando a ocorrência de swapping. Inicialmente, só o processo A está alocado na memória e com o passar do tempo os processos B, C, D e E também são carregados. Diferentemente do esquema de partição fixa, na multiprogramação com partições variáveis a o tamanho e a localização dos processos variam a medida que o mesmo deixa e retorna à memória. Uma das grandes vantagens desta estratégia é que a flexibilidade obtida melhora bastante a utilização da memória, evitando desperdícios de espaço. Por outro lado, a gerência dos espaços vazios é mais complicada, bem como a alocação e liberação das partições. O sistema operacional mantém uma lista de espaços livres na memória física. Sempre que um novo processo é criado esta lista é percorrida e será usada uma lacuna maior ou igual ao tamanho do processo em questão. O espaço que ultrapassar o tamanho do processo pode dar origem a uma nova partição. Existem algumas formas de percorrer esta lista:
 
-Em sistemas multiprogramados, a memória primária é dividida em blocos chamados de partições. Inicialmente, as partições, embora de tamanho fixo, não tinham necessariamente o mesmo tamanho entre elas, possibilitando diferentes configurações para sua utilização. Este esquema é conhecido como alocação particionada estática e tinha como grandes problemas:
+1. **First-fit:** inicia a procura a partir da primeira página de memória (parte baixa) e vai varrendo a memória até encontrar a primeira lacuna suficientemente grande para armazenar o processo.
+2. **Best-fit:** varre toda a memória e escolhe a página mais ajustada ao tamanho do processo.
+3. **Worst-fit:** varre toda a memória e escolhe a página menos ajustada ao tamanho do processo.
+4. **Next-fit:** segue a mesma idéia do first-fit, mas somente a primeira busca é iniciada na parte baixa da memória (primeira página), as outras iniciam onde terminou a última. Usa-se uma lista circular para permitir que, eventualmente, toda a memória seja percorrida.
 
-O fato de os programas, normalmente, não preencherem totalmente as partições onde eram carregados, desperdiçando espaço.
-Se um programa fosse maior do que qualquer partição livre, ele ficaria aguardando uma que o acomodasse, mesmo se existisse duas ou mais partições adjacentes que, somadas, totalizassem o tamanho do programa. Este tipo de problema, onde pedaços de memória ficam impedidos de serem usados por outros programas, é chamado de fragmentação.
+Existe a possibilidade de formar buracos por toda a memória ao longo da execução dos processos, o que não é desejável. Uma das formas de eliminar tais buracos é mover todos os processos para a parte mais baixa da memória. Tal técnica é conhecida como **compactação de memória**. No entanto, perde-se muito tempo de processamento para promover esta organização, logo não é adequado realizar esta tarefa constantemente.
 
-Dado o problema da fragmentação na alocação particionada estática, foi necessário outro tipo de alocação como solução e, consequentemente, o aumento do compartilhamento da memória. Na alocação particionada dinâmica, foi eliminado o conceito de partições de tamanho fixo. Nesse esquema, cada programa utilizaria o espaço que necessitasse, passando esse bloco a ser sua partição. A princípio, o problema da fragmentação pareceu estar resolvido, porém, neste caso, a fragmentação começará a ocorrer, realmente, quando os programas forem terminando e deixando espaços cada vez menores na memória, não permitindo o ingresso de novos programas. A complexidade do algoritmo de desfragmentação e o consumo de recursos do sistema, como processador e área em disco, podem tornar este processo inviável. É importante perceber que, nesses dois tipos de gerenciamento de memória apresentados, o espaço de endereçamento é igual ao tamanho da memória primária existente no sistema.
+Algumas linguagens de programação permitem que a área de dados alocados por um processo cresça ao longo de sua execução. Com isso, ocorrerão problemas sempre que um processo necessita crescer e sua partição não permita nenhuma expansão. Se houver algum espaço adjacente ao processo que puder ser alocado a ele, o crescimento será permitido sem que seja necessário mover o mesmo para outra partição maior. Caso não haja espaço para aumentar o tamanho da partição ou não tenha uma partição grande o suficiente para realocar o processo, então um ou mais processos deverão ser removidos para o disco (swapping). Caso a área de swapping já esteja cheia e não seja possível realizar o chaveamento entre a memória principal e o disco o processo que deseja crescer deverá esperar ou ser eliminado.
 
-<br>
-
-<h1>Diferença na fragmentação interna e externa</h1>
-
-A fragmentação interna é a perda de espaço dentro de uma área de tamanho fixo.
-A fragmentação externa ocorre no particionamento dinâmico. Ela começa a acontecer quando os programas forem terminando e deixando espaços cada vez menores na memória, não permitindo o ingresso de novos programas.
-
-<br>
-
-<h1>Estratégias de alocação de Partição</h1>
-
-Os SO implementam basicamente 3 estrategias para determinar em qual área livre um programa sera carregada para execução. Tem como função evitar ou diminuir o problema de fragmentação externa.
-
-- **Best-fit** Nessa estratégia é escolhida a melhor partição, ou seja, aquela que o programa deixa o menor espaço sem utilização. Nesse algoritmo a Lista de áreas livres esta alocada por tamanho, diminuindo o tempo de busca. Tem a Desvantagem de deixar pequenas áreas não contíguas, aumentando o problema da fragmentação.
-
-- **Worst-fit** Nessa estratégia é escolhida a pior partição, ou seja, aquela que o programa deixa o maior espaço sem utilização. Ela Diminui o problema de fragmentação, deixando espaços livres maiores que permitem a um maior número de programas utilizar a memória.
-
-- **First-fit** Nessa estratégia é escolhida a primeira partição livre de tamanho suficiente para carregar o programa. Nesse algoritmo a Lista de áreas livres ordenada por endereços crescentemente. Existe uma Grande chance de se obter uma grande partição livre nos endereços de memórias mais altos. Das 3 estratégias é a Mais rápida e consome menos recursos do sistema.
+<div align="center">
+  <img width="400" src="./imagens/area_para_expansao.png">
+</div>
 
 <br>
 
-<h1>A técnica de Swapping</h1>
+<h1 id="swappin">A técnica de Swapping</h1>
 
 O swapping é uma técnica criada na tentativa de melhorar o problema da insuficiência de memória durante a execução de alguns processos em ambientes multiprogramados. O sistema escolhe um programa residente, que é levado da memória para o disco (swap out), retornando posteriormente para a memória principal (swap in) como se nada tivesse ocorrido.
 
