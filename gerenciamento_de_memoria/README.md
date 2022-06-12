@@ -11,8 +11,14 @@ A tarefa do gerencimento de memória são:
 - Mapear e atualizar quais partes da memória estão em uso e quais não estão para que seja possível:
   - Alocar memória para processos que estão prontos para execução;
   - Libera-la quando o processo concluir sua execução.
-- Gerenciar o swapping:
-  - Chaveamento entre a memória principal e o disco quando não houver espaço suficiente na memória principal para comportar todos os processos ([swap in] executá-lo durante um intervalo de tempo e depois devolvê-lo ao disco [swap out])
+- Gerenciar o <a href="#swapping">swapping</a>:
+  - Chaveamento entre a memória principal e o disco quando não houver espaço suficiente na memória principal para comportar todos os processos.
+
+<br>
+
+<h1>Unidade de Gerência de Memória</h1>
+
+A MMU(Memory Management Unit) é um módulo de hardware que faz o mapeamento entre os endereços lógicos (end. da memória virtual) e os endereços físicos da memória (RAM), ou seja, é um dispositivo que transforma endereços virtuais em endereços físicos. Para isso, a MMU normalmente traduz número de páginas virtuais para número de páginas físicas utilizando uma cache chamada Translation Lookaside Buffer (TLB).
 
 <br>
 
@@ -109,24 +115,43 @@ Algumas linguagens de programação permitem que a área de dados alocados por u
 
 <br>
 
-<h1 id="swappin">A técnica de Swapping</h1>
+<h1>Gerência de Memória com Mapeamento de Bits e Lista Ligada</h1>
 
-O swapping é uma técnica criada na tentativa de melhorar o problema da insuficiência de memória durante a execução de alguns processos em ambientes multiprogramados. O sistema escolhe um programa residente, que é levado da memória para o disco (swap out), retornando posteriormente para a memória principal (swap in) como se nada tivesse ocorrido.
+- <h2>Mapeamento de Bits</h2>
 
-Para que essa técnica seja implementada é necessário que o sistema ofereça um loader que implemente a relocação dinâmica de programas. Um loader realocável que não ofereça essa facilidade permite que um programa seja colocado em qualquer posição da memória, porém a realocação é realizada no momento do carregamento.
-No caso do swapping, um programa pode sair e voltar diversas vezes para a memória, sendo necessário que a relocação seja realizada pelo loader a cada carregamento.
+Nesta forma de gernciamento, a cada unidade de alocação da memória é atribuido um bit para dizer se a posição está livre ou ocupada. Assim, o conjunto de todos os bits é representado em uma tabela, denominada mapa de bits, que mapeia todas as posições de memória dizendo o estado de cada uma. Devemos ressaltar que o tamanho da unidade de alocação é muito importante e quanto menor as unidades, maior será o mapa de bits. Como o mapa de bits também é armazenado em memória seu tamanho ocupará espaço útil e, consequentemente, uma parte da memória será desperdiçada. Quando um processo de k bits necessitar ser armazenado em memória a MMU deverá procurar no mapa k bits consecutivos indicando que a posição está vazia (pode ser o bit 0 ou 1). Como varrer o mapa de bits é lento este método quase não é usado.
+
+<div align="center">
+  <img width="700" src="./imagens/mapeamento_de_bits.png">
+</div>
 
 <br>
 
-<h1>Realocação Dinâmica</h1>
+- <h2>Lista Ligada</h2>
 
-é Realizada através de um registrador especial denominado registrador de alocação, que recebe o endereço inicial da região da memória que o programa irá ocupar no momento do carregamento do programa na memória.
-Toda vez que ocorrer uma referência a algum endereço, o endereço contido na instrução será somado ao conteúdo do registrador, gerando assim, o endereço físico.
+As representações dos espaços livres e ocupados são feitos através de uma lista ligada, onde P indica uma região ocupada por um processo e H um espaço livre de memória. A lista pode estar ordenada por endereços de memória. Assim como no mapa de bits, qualquer alteração nas posições de memória deve gerar uma alteração no mapeamento promovido pela lista ligada. Se a lista estiver ordenada por endereço uma atualização mais rápida é permitida sempre que um processo terminar de executar suas instruções ou for retirado da memória. A utilização de uma lista duplamente encadeada facilita no processo de atualização da mesma.
 
-O conceito de swapping permite um maior compartilhamento da memória
-principal. Mas Seu maior problema é o elevado custo das operações de entrada/saída
-(swap in/out). Em momentos em que há pouca memória disponível, o sistema
-pode ficar quase que dedicado à realização de swapping, deixando de
-executar outras tarefas. Essa situação e chamada de Thrashing.
+<div align="center">
+  <img width="600" src="./imagens/lista_ligada.png">
+</div>
+
+<br>
 
 #
+
+<h2 id="swapping">Sobre a técnica de Swapping</h2>
+
+O swapping é uma técnica criada na tentativa de melhorar o problema da insuficiência de memória durante a execução de alguns processos em ambientes multiprogramados. O sistema escolhe um programa residente, que é levado da memória para o disco (swap out), retornando posteriormente para a memória principal (swap in) como se nada tivesse ocorrido.
+
+Para sua implementação é necessário que o sistema ofereça um loader que implemente a relocação dinâmica de programas. Um loader realocável que não ofereça essa facilidade permite que um programa seja colocado em qualquer posição da memória, porém a realocação é realizada no momento do carregamento.
+No caso do swapping, um programa pode sair e voltar diversas vezes para a memória, sendo necessário que a relocação seja realizada pelo loader a cada carregamento.
+
+A **Realocação Dinâmica** é Realizada através de um registrador especial denominado **registrador de alocação**, ele recebe o endereço inicial da região da memória que o programa irá ocupar no momento do carregamento do programa na memória.
+Toda vez que ocorrer uma referência a algum endereço, o endereço contido na instrução será somado ao conteúdo do registrador, gerando assim, o endereço físico.
+
+O conceito de swapping permite um maior compartilhamento da memória principal. Mas Seu maior problema é o elevado custo das operações de I/O. Em momentos em que há pouca memória disponível, o sistema pode ficar quase que dedicado à realização de swapping, deixando de executar outras tarefas. Essa situação e chamada de **Thrashing**.
+
+#
+
+https://www.youtube.com/watch?v=Q8ZqjEafmNc&t=827s  
+http://professor.pucgoias.edu.br/SiteDocente/admin/arquivosUpload/17785/material/AULA%2013%20-%20Gerncia%20de%20Memria.pdf
