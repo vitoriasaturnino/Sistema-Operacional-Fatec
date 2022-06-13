@@ -16,12 +16,6 @@ A tarefa do gerencimento de memória são:
 
 <br>
 
-<h1>Unidade de Gerência de Memória</h1>
-
-A MMU(Memory Management Unit) é um módulo de hardware que faz o mapeamento entre os endereços lógicos (end. da memória virtual) e os endereços físicos da memória (RAM), ou seja, é um dispositivo que transforma endereços virtuais em endereços físicos. Para isso, a MMU normalmente traduz número de páginas virtuais para número de páginas físicas utilizando uma cache chamada Translation Lookaside Buffer (TLB).
-
-<br>
-
 <h1>Como o Sistma Operacional administra o recurso de memória principal?</h1>
 
 Existem diversas formas, como a monoprogramada, onde existe apenas um programa em execução, ou para casos em que há vários processos executados de forma concorrente (multiprogramada).
@@ -119,7 +113,7 @@ Algumas linguagens de programação permitem que a área de dados alocados por u
 
 - <h2>Mapeamento de Bits</h2>
 
-Nesta forma de gernciamento, a cada unidade de alocação da memória é atribuido um bit para dizer se a posição está livre ou ocupada. Assim, o conjunto de todos os bits é representado em uma tabela, denominada mapa de bits, que mapeia todas as posições de memória dizendo o estado de cada uma. Devemos ressaltar que o tamanho da unidade de alocação é muito importante e quanto menor as unidades, maior será o mapa de bits. Como o mapa de bits também é armazenado em memória seu tamanho ocupará espaço útil e, consequentemente, uma parte da memória será desperdiçada. Quando um processo de k bits necessitar ser armazenado em memória a MMU deverá procurar no mapa k bits consecutivos indicando que a posição está vazia (pode ser o bit 0 ou 1). Como varrer o mapa de bits é lento este método quase não é usado.
+Nesta forma de gernciamento, a cada unidade de alocação da memória é atribuido um bit para dizer se a posição está livre ou ocupada. Assim, o conjunto de todos os bits é representado em uma tabela, denominada mapa de bits, que mapeia todas as posições de memória dizendo o estado de cada uma. Devemos ressaltar que o tamanho da unidade de alocação é muito importante e quanto menor as unidades, maior será o mapa de bits. Como o mapa de bits também é armazenado em memória seu tamanho ocupará espaço útil e, consequentemente, uma parte da memória será desperdiçada. Como varrer o mapa de bits é lento este método quase não é usado.
 
 <div align="center">
   <img width="700" src="./imagens/mapeamento_de_bits.png">
