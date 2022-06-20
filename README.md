@@ -10,6 +10,6 @@ Conteúdo das aulas de Sistema Operacional
 - <a href=""></a>Mutex
 - <a href="/escalonamento/README.md">Escalonamento</a>
 - <a href="/gerenciamento_de_memoria/README.md">Gerenciamento de Memória</a>
-- <a href=""></a>Memória Virtual
+- <a href="./memoria_virtual/README.md">Memória Virtual</a>
 
 <!-- tópicos ainda sem link pois os conteúdos ainda não foram refinados  -->
