@@ -12,7 +12,7 @@ Em ambientes que implementam memória virtual, o espaço de endereçamento do pr
 A MMU (Memory Management Unit) é um módulo de hardware que faz o mapeamento entre os endereços lógicos e os endereços físicos da memória (RAM). Para isso, a MMU normalmente traduz número de páginas virtuais para número de páginas físicas utilizando uma cache chamada Translation Lookaside Buffer (TLB).
 
 <div align="center">
-  <img width=350px src="./imagens/funcionamento_MMU.png">
+  <img width=500px src="./imagens/funcionamento_MMU.png">
 </div>
 
 <br>
