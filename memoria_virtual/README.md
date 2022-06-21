@@ -80,7 +80,8 @@ Principais estratégias usadas pelos sistemas operacionais para realocação de 
 
   - **FIFO com Buffer de páginas**
 
-  - **FIFO circular (clock)**
+  - **FIFO circular (clock)**  
+    Utiliza como base o FIFO, porém as páginas alocadas na memória estão em uma estrutura de lista circular, semelhante a um relógio. Este algoritmo é implementado, com pequenas variações na maioria dos sitemas Unix.
     <br>
 
 <h2>tamanho de página</h2>
