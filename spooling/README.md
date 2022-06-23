@@ -10,4 +10,5 @@ Spooling
 - os discos (processamento não sequencial) tornou o spooling mais eficiente;
 - A tecnica de spooling usa áreas do sisco como se fosse um grande buffeer, dados podem ser gravados e lidos enquanto o pogramas são executados concorrentemente;
 - Tecnica presente na maioria dos sistemas operacionais e usada no gerenciamento de impressão;
-- Arquivo spool, grava as informações
+- Arquivo spool, grava as informações;
+-
