@@ -1,13 +1,12 @@
-Spooling
+# Spooling
 
-- Aumentar o grau de concorrencia e eficiencia dos SO;
-- velocidade dos dospositivos de I/O é muito menor do que a do processador a CPU permenecia ociosa;
-- solução armazenamento de jobs em fitas magnéticas e submete-las a processamento de forma que o mprocessador poderia executar cada job sequencialmente diminutindo o tempo de processamento e transição;
-- O job também poderia gravar suas saídas em uma fita magnetica em vez de diretamente na impressora, essas fitas então poderiam ser impressa integralmente;
-- Forma de processamento chamade de spooling base dos sistemas batch;
-- o processamento das fitas era sequencial;
-- jobs menores atrás de um job grandão eram comprometidos no tempo de espera;
-- os discos (processamento não sequencial) tornou o spooling mais eficiente;
-- A tecnica de spooling usa áreas do sisco como se fosse um grande buffeer, dados podem ser gravados e lidos enquanto o pogramas são executados concorrentemente;
-- Tecnica presente na maioria dos sistemas operacionais e usada no gerenciamento de impressão;
-- Arquivo spool, grava as informações
+<div align="justify">
+  
+A técnica de spoopling foi criada com o intuito de de aumentar o grau de eficiencia e concorrencia de um SO, já que na década de 50 a velocidade de operação entre os dispositivos de I/O era menor que a do processador deixando-o ocioso por algum tempo.
+A solução para a época foi armazenar jobs em fitas magnéticas e submete-las a processamento Isso posibilitava que a CPU executasse os jobs de forma sequencial; ao invés de um job gravar sua saida na impreseora a gravação poderia ser feita em outra fita, que posteriormente poderia ser impressa integralmente.   
+
+No entanto, como o processamento dos jobs era feito de forma sequencia1 (FIFO), o que causa outro contratempo, já que se algum job tiver um tempo de processamento muito longo, os demais teriam que esperar que seu processamento fosse concluido para enttão, por sua vez, serem processados. Isso pode ser relvido com dispositivos de acesso reto, como discos, que proporionavam o processamento não sequencial, tornando o spooling mais eficiente.
+Assim como a tecnica de buffer, o spooling faz algo parecido utilizando uma área do disco enquanto processos são executados concorrentemente.   
+
+Atualmente essa técnica é utilizada no gerenciamento de impressão. No momento em que o comando de impressão é executado o os dados a serem impressos são gravados em um arquivo no disco (arquivo spool) liberando rapidamente o programa e quem fica responsavel por direcionar o arquivo spool para a impressora é o próprio SO, que também gerencia a sequencia de impresssão mantendo a eficiencia e a segurança da impressora.
+<div>
